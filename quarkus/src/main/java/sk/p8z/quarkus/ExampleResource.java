@@ -1,4 +1,4 @@
-package sk.p8z;
+package sk.p8z.quarkus;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

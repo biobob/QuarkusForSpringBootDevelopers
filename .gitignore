@@ -1,2 +1,4 @@
 .idea
 *.tsv
+*.sql
+*.gz
