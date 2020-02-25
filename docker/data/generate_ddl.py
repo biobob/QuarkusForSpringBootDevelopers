@@ -97,7 +97,7 @@ def main():
     with open("import.sql", "w", encoding='utf-8') as file:
         create_schema(file)
         insert_data(file, filter_dev)
-        # with open("import.prod.sql", "w", encoding='utf-8') as file:
+    with open("import.prod.sql", "w", encoding='utf-8') as file:
         create_schema(file)
         insert_data(file, filter)
     print("SQL Created...")
