@@ -1,28 +1,47 @@
 package sk.p8z.quarkus.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Objects;
+import org.hibernate.annotations.Formula;
+import sk.p8z.quarkus.entities.dto.MovieDTO;
+
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "movies", schema = "public", catalog = "docker")
 public class Movie {
     @Id
     @GeneratedValue
-    private int id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
+    @Column(name = "title")
     private String title;
-    private int year;
-    private int length;
+    @Column(name = "year")
+    private Integer year;
+    @Column(name = "length")
+    private Integer length;
+    @Column(name = "genres")
     private String genres;
+    @Formula("lower(title)")
+    @JsonbTransient
+    private String lowercaseTitle;
 
     public Movie() {
     }
 
-    public int getId() {
+    public Movie(MovieDTO movieDTO) {
+        {
+            length = movieDTO.getLength();
+            year = movieDTO.getYear();
+            genres = movieDTO.getGenres();
+            title = movieDTO.getTitle();
+        }
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,19 +53,19 @@ public class Movie {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(Integer length) {
         this.length = length;
     }
 
@@ -58,31 +77,7 @@ public class Movie {
         this.genres = genres;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
-        return id == movie.id &&
-                year == movie.year &&
-                length == movie.length &&
-                Objects.equals(title, movie.title) &&
-                Objects.equals(genres, movie.genres);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, year, length, genres);
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", year=" + year +
-                ", length=" + length +
-                ", genres='" + genres + '\'' +
-                '}';
+    public String getLowercaseTitle() {
+        return lowercaseTitle;
     }
 }

@@ -15,7 +15,6 @@ import javax.ws.rs.core.Application;
                 version = "0.0.1",
                 contact = @Contact(
                         name = "Who you gonna call",
-                        url = "http://exampleurl.com/ghostbusters",
                         email = "ghost@busters.com"),
                 license = @License(
                         name = "Apache 2.0",

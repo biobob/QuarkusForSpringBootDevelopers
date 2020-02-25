@@ -1,16 +1,19 @@
 package sk.p8z.quarkus;
 
 
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import sk.p8z.quarkus.entities.Movie;
+import sk.p8z.quarkus.entities.dto.MovieDTO;
 import sk.p8z.quarkus.repositories.MoviesRepository;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Path("/movies")
+@RestController
+@RequestMapping(value = "/movies", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class MoviesResource {
     private MoviesRepository moviesRepository;
 
@@ -18,23 +21,24 @@ public class MoviesResource {
         this.moviesRepository = moviesRepository;
     }
 
-    @GET
-    @Produces("application/json")
-    public Iterable<Movie> findAll() {
-        return moviesRepository.findAll();
-    }
+//    @GetMapping(params = {"page", "size"})
+//    public Page<Movie> findAll(@PathVariable(value = "5", required = false) int page,@PathVariable(value = "5", required = false) int size) {
+//        return moviesRepository.findAll(PageRequest.of(page, size));
+//    }
 
-    @GET
-    @Path("/movie/{id}")
-    @Produces("application/json")
-    public Movie findById(int id) {
+    @GetMapping(path = "/movie/{id}")
+    public Movie findById(@PathVariable int id) {
         return moviesRepository.findById(id);
     }
 
-    @GET
-    @Path("/movie/{title}")
-    @Produces("application/json")
-    public List<Movie> findByTitle(@PathParam String title) {
-        return moviesRepository.findByTitle(title);
+    @GetMapping(path = "/{title}")
+    public List<Movie> findByTitle(@Valid @NotEmpty @NotBlank @PathVariable String title) {
+        return moviesRepository.findMoviesByLowercaseTitleContaining(title.toLowerCase());
+    }
+
+    @PostMapping(path = "/movie")
+    public Movie saveMovie(@Valid @RequestBody MovieDTO movieDTO) {
+        Movie movie = new Movie(movieDTO);
+        return moviesRepository.save(movie);
     }
 }
