@@ -1,6 +1,8 @@
 package sk.p8z.quarkus;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sk.p8z.quarkus.entities.Movie;
@@ -21,10 +23,13 @@ public class MoviesResource {
         this.moviesRepository = moviesRepository;
     }
 
-//    @GetMapping(params = {"page", "size"})
-//    public Page<Movie> findAll(@PathVariable(value = "5", required = false) int page,@PathVariable(value = "5", required = false) int size) {
-//        return moviesRepository.findAll(PageRequest.of(page, size));
-//    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Movie> findAll(
+            @RequestParam(name = "page", value = "0", required = false) int page,
+            @RequestParam(name = "size", value = "20", required = false) int size
+    ) {
+        return moviesRepository.findAll(PageRequest.of(page, size)).getContent();
+    }
 
     @GetMapping(path = "/movie/{id}")
     public Movie findById(@PathVariable int id) {
