@@ -12,4 +12,3 @@ else
   rm -f $SQL_PROD 2>/dev/null && rm -f $SQL_DEV 2>/dev/null
   docker run -it --rm -v "$WD":/usr/src/myapp -w /usr/src/myapp python:3.8-slim python generate_ddl.py
 fi
-
