@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 import csv
 import requests
 import gzip
+
 
 # SANITIZING... removing ' and \n from tsv file
 def sanitize(row):

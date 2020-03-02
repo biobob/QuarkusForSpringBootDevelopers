@@ -1,10 +1,10 @@
 package sk.p8z.quarkus.entities;
 
 import org.hibernate.annotations.Formula;
-import sk.p8z.quarkus.entities.dto.MovieDTO;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "movies", schema = "public", catalog = "docker")
@@ -13,6 +13,7 @@ public class Movie {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
+    @NotEmpty
     @Column(name = "title")
     private String title;
     @Column(name = "year")
@@ -26,15 +27,6 @@ public class Movie {
     private String lowercaseTitle;
 
     public Movie() {
-    }
-
-    public Movie(MovieDTO movieDTO) {
-        {
-            length = movieDTO.getLength();
-            year = movieDTO.getYear();
-            genres = movieDTO.getGenres();
-            title = movieDTO.getTitle();
-        }
     }
 
     public Integer getId() {
