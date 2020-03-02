@@ -1,7 +1,7 @@
-version: '2.2'
+version: '3.1'
 services:
   db:
-    image: postgres
+    build: ./data
     ports:
       - 5432:5432
     environment:
@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: docker
     networks:
-      - elastic
+      - net
   pgadmin:
     image: dpage/pgadmin4
     ports:
@@ -19,8 +19,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: SuperSecret
       POSTGRES_DB: docker
     networks:
-      - elastic
+      - net
 
 networks:
-  elastic:
+  net:
     driver: bridge
