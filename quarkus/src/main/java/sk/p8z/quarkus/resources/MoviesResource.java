@@ -31,7 +31,7 @@ public class MoviesResource implements MovieApi {
 
     @Override
     public ResponseEntity<Movie> moviesMovieIdGet(@PathVariable Integer id) {
-        return ResponseEntity.ok(moviesRepository.findById(id));
+        return ResponseEntity.ok(moviesRepository.findById(id.intValue()));
     }
 
     @Override
