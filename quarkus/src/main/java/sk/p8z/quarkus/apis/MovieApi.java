@@ -18,7 +18,7 @@ public interface MovieApi {
             @RequestParam(name = "limit", value = "20", required = false) int limit);
 
     @GetMapping(path = "/movie/{id}")
-    ResponseEntity<Movie> moviesMovieIdGet(int id);
+    ResponseEntity<Movie> moviesMovieIdGet(@PathVariable int id);
 
     @PostMapping(path = "/movie")
     ResponseEntity<Movie> moviesMoviePost(@Valid Movie body);
