@@ -24,5 +24,5 @@ public interface MovieApi {
     ResponseEntity<Movie> moviesMoviePost(@Valid Movie body);
 
     @GetMapping(path = "/{title}")
-    ResponseEntity<List<Movie>> moviesTitleGet(@Valid @NotEmpty @NotBlank String title);
+    ResponseEntity<List<Movie>> moviesTitleGet(@Valid @NotEmpty @NotBlank @PathVariable String title);
 }
