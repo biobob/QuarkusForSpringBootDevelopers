@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import sk.p8z.quarkus.entities.Movie;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public interface MovieApi {
@@ -22,5 +20,5 @@ public interface MovieApi {
     ResponseEntity<Movie> moviesMoviePost(@Valid Movie body);
 
     @GetMapping(path = "/{title}")
-    ResponseEntity<List<Movie>> moviesTitleGet(@Valid @NotEmpty @NotBlank @PathVariable String title);
+    ResponseEntity<List<Movie>> moviesTitleGet(@PathVariable String title);
 }
