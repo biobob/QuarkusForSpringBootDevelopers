@@ -1,9 +1,7 @@
 package sk.p8z.quarkus.apis;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import sk.p8z.quarkus.entities.Movie;
 
 import javax.validation.Valid;
